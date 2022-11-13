@@ -35,23 +35,21 @@ export const ContactForm = () => {
         } = useForm( formData, formValidations );
 
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const [formListener, setFormListener] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        setFormListener(true);
         setFormSubmitted(true);
-        if ( !isFormValid ) return;
-        if ( isFormValid && formListener ) {
+        if ( !isFormValid ) return console.log("Invalid form.");
+        if ( isFormValid ) {
             emailjs.sendForm('service_xbz06ln', 'template_ql4ga37', form.current, 'yWPsLI5DUoSOb8wgI')
                 .then( (result) => {
                     setFormSuccess("true");
+                    console.log(result.status)
                 }, (error) => {
                     console.log(error.text);
                 });
         }
-        setFormListener(false);
     };
 
   return (
